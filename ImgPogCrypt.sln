@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImgPogCrypt", "ImgPogCrypt\ImgPogCrypt.csproj", "{559A237C-73EF-4907-9FD2-DF77B82F882B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImgPogCryptTests", "ImgPogCryptTests\ImgPogCryptTests.csproj", "{78E04A0E-B8A6-435D-9749-9914013C7D53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{559A237C-73EF-4907-9FD2-DF77B82F882B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559A237C-73EF-4907-9FD2-DF77B82F882B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559A237C-73EF-4907-9FD2-DF77B82F882B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E04A0E-B8A6-435D-9749-9914013C7D53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E04A0E-B8A6-435D-9749-9914013C7D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E04A0E-B8A6-435D-9749-9914013C7D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E04A0E-B8A6-435D-9749-9914013C7D53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
