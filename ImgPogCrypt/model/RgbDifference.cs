@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 
 namespace ImgPogCrypt.model
 {
@@ -53,6 +54,29 @@ namespace ImgPogCrypt.model
             if (G == 1) hashCode += 10;
             if (B == 1) hashCode += 100;
             return hashCode;
+        }
+
+        public Color toColor()
+        {
+            return Color.FromArgb(R, G, B);
+        }
+
+        public Color addColor(Color color)
+        {
+            return Color.FromArgb(
+                Convert.ToInt32(color.R) + R,
+                Convert.ToInt32(color.G) + G,
+                Convert.ToInt32(color.B) + B
+            );
+        }
+
+        public static RgbDifference fromColor(Color color)
+        {
+            return new RgbDifference(
+                Convert.ToInt32(color.R) > 0,
+                Convert.ToInt32(color.G) > 0,
+                Convert.ToInt32(color.B) > 0
+            );
         }
     }
 }
