@@ -16,7 +16,7 @@ namespace ImgPogCrypt
             {
                 sb.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
             }
-           string[] binaryPairs = StringUtil.SplitStringToSet(sb.ToString());
+           string[] binaryPairs = StringUtil.SplitStringBySize(sb.ToString());
            foreach (string pair in binaryPairs)
            {
                result.Add(new RgbDifference(pair));
