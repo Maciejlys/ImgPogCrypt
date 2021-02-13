@@ -21,10 +21,10 @@ namespace ImgPogCrypt
 
         public Bitmap ToBitmap(List<RgbDifference> diffs, Bitmap image)
         {
-            if(ImageMemoryLimitExceeded(diffs.Count, image))
+            if(IsImageTooSmall(diffs.Count, image))
                 throw new ArgumentException("Image is too small!");
 
-            Bitmap newImage = new Bitmap(image.Width, image.Height);
+            Bitmap newImage = new Bitmap(image);
             BitmapUtil.Iterate(image, diffs, (point, diff) =>
             {
                 Color pixel = image.GetPixel(point.X, point.Y);
@@ -39,7 +39,7 @@ namespace ImgPogCrypt
 
         public bool PixelColorLimitExceeded(Color pixel) => (pixel.R > 253 && pixel.G > 253 && pixel.B > 253);
         
-        public bool ImageMemoryLimitExceeded(int diffsCount, Bitmap image)
+        public bool IsImageTooSmall(int diffsCount, Bitmap image)
         {
             int capablePixelsCount = 0;
             BitmapUtil.Iterate(image, point =>

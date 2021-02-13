@@ -58,7 +58,7 @@ namespace ImgPogCryptTests
         {
             // 10x10 = 100 memory pixels
             Bitmap example = new Bitmap(10, 10);
-            Assert.False(_converter.ImageMemoryLimitExceeded(5, example));
+            Assert.False(_converter.IsImageTooSmall(5, example));
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace ImgPogCryptTests
         {
             Bitmap example = new Bitmap(1, 1);
             example.SetPixel(0, 0, Color.White);
-            Assert.True(_converter.ImageMemoryLimitExceeded(1, example));
+            Assert.True(_converter.IsImageTooSmall(1, example));
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace ImgPogCryptTests
         {
             Bitmap example = new Bitmap(2, 1);
             example.SetPixel(0, 0, Color.White);
-            Assert.False(_converter.ImageMemoryLimitExceeded(1, example));
+            Assert.False(_converter.IsImageTooSmall(1, example));
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace ImgPogCryptTests
         {
             List<RgbDifference> diffs = _encryptor.Encrypt(message);
             Bitmap result = _converter.ToBitmap(diffs);
-            Assert.True((result.Width * result.Height) > diffs.Count);
+            Assert.True((result.Width * result.Height) >= diffs.Count);
 
             BitmapUtil.Iterate(result, diffs, (point, diff) =>
             {
