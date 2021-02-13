@@ -1,20 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using ImgPogCrypt.lib;
+using ImgPogCrypt.model;
 
 namespace ImgPogCrypt
 {
     public class BaseEncryptor : IEncryptor
     {
-        public string[] StringToByteArray(string txt)
+        public List<RgbDifference> Encrypt(string txt)
         {
-            StringBuilder result = new StringBuilder();
+            List<RgbDifference> result = new List<RgbDifference>();
+            StringBuilder sb = new StringBuilder();
             foreach (char c in txt.ToCharArray())
             {
-                result.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
+                sb.Append(Convert.ToString(c, 2).PadLeft(8, '0'));
             }
-
-            return StringUtil.SplitStringToSet(result.ToString());
+           string[] binaryPairs = StringUtil.SplitStringToSet(sb.ToString());
+           foreach (string pair in binaryPairs)
+           {
+               result.Add(new RgbDifference(pair));
+           }
+           return result;
         }
     }
 }

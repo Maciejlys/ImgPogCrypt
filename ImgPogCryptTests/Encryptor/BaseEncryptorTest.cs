@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using ImgPogCrypt;
 using Xunit;
 using ImgPogCrypt.lib;
-using Xunit.Abstractions;
+using ImgPogCrypt.model;
 
 namespace ImgPogCryptTests.Encryptor
 {
@@ -19,82 +18,79 @@ namespace ImgPogCryptTests.Encryptor
         }
 
         [Fact]
-        public void proper_type_of_data()
-        {
-            Type type = _encryptor.StringToByteArray("test").GetType();
-            Assert.IsType<string[]>(type.ToString());
-        }
-
-        [Fact]
-        public void proper_size_of_packet()
-        {
-            string[] bytes = _encryptor.StringToByteArray("test");
-            Assert.DoesNotContain(bytes.ToList(), x => x.Length > 3);
-        }
-
-        [Fact]
         public void numbers_are_numbers()
         {
-            string[] bytes = _encryptor.StringToByteArray("test");
-            foreach (string variable in bytes)
+            var bytes = _encryptor.Encrypt("test");
+            foreach (RgbDifference diff in bytes)
             {
-                foreach (char c in variable)
-                {
-                    if (c == '0' || c == '1') ;
-                    else throw new Exception();
-                }
+                if (diff.R != 0 || diff.R != 1
+                                || diff.G != 0 || diff.G != 1
+                                || diff.B != 0 || diff.B != 1) ;
+                else throw new Exception();
             }
         }
 
         [Fact]
         public void numbers_are_numbers_2()
         {
-            string[] bytes = _encryptor.StringToByteArray("test");
-            bool flag = StringUtil.JoinSets(bytes).ToList().TrueForAll(c => c == '1' || c == '0');
+            var bytes = _encryptor.Encrypt("test");
+            bool flag = bytes.TrueForAll(diff => diff.R == 0 || diff.R == 1
+                                                             || diff.G == 0 || diff.G == 1
+                                                             || diff.B == 0 || diff.B == 1);
             Assert.True(flag);
         }
 
         [Fact]
         public void txt_to_binary_first_set_of_word()
         {
-            string[] bytes = _encryptor.StringToByteArray("test");
-            Assert.Equal("011", bytes[0]);
+            var bytes = _encryptor.Encrypt("test");
+            // Assert.Equal("011", bytes[0]);
+            RgbDifference diff = bytes[0];
+            Assert.Equal(0, diff.R);
+            Assert.Equal(1, diff.G);
+            Assert.Equal(1, diff.B);
         }
 
         [Fact]
         public void txt_to_binary_small_2()
         {
-            string[] bytes = _encryptor.StringToByteArray("a");
+            var bytes = _encryptor.Encrypt("a");
             /*
-             * Binary representation of character 'a' is 01100001
+             * Binary representation of character 'a' is 0110 0001
              * but encoder is adding additional 0 at the end to
              * follow the rule that all sets of numbers must be of
              * a length 3
              */
-            Assert.Equal(StringUtil.SplitStringToSet("011000010")
-                , bytes);
+            Assert.Equal(3, bytes.Count);
+            CompareRgbDifference(new RgbDifference(0, 1, 1), bytes[0]);
+            CompareRgbDifference(new RgbDifference(0, 0, 0), bytes[1]);
+            CompareRgbDifference(new RgbDifference(0, 1, 0), bytes[2]);
         }
 
         [Fact]
         public void txt_to_binary_big()
         {
-            string[] bytes = _encryptor.StringToByteArray("test");
-            string expectedString = "01110100011001010111001101110100";
-            string[] expectedBytes = StringUtil.SplitStringToSet(expectedString);
-            Assert.Equal(expectedBytes, bytes);
+            var bytes = _encryptor.Encrypt("test");
+            Assert.Equal(11, bytes.Count);
+            CompareRgbDifference(new RgbDifference(0, 1, 1), bytes[0]);
+            CompareRgbDifference(new RgbDifference(1, 0, 1), bytes[5]);
+            CompareRgbDifference(new RgbDifference(1, 0, 1), bytes[9]);
         }
-        
+
         [Fact]
         public void txt_to_binary_big_1()
         {
-            string[] bytes = _encryptor.StringToByteArray("checking long sentence");
-            string expected = "01100011 01101000 01100101 01100011 01101011 01101001 01101110 01100111 00100000 01101100 01101111 01101110 01100111 00100000 01110011 01100101 01101110 01110100 01100101 01101110 01100011 01100101 00001010";
-            string trimmed = String.Concat(expected.Where(c => !Char.IsWhiteSpace(c)));
-            while (trimmed.Length % 3 != 0)
-            {
-                trimmed += '0';
-            }
-            Assert.Equal(trimmed, StringUtil.JoinSets(bytes));
+            var bytes = _encryptor.Encrypt("checking long sentence");
+            Assert.Equal(59, bytes.Count);
+            CompareRgbDifference(new RgbDifference(0, 1, 1), bytes[0]);
+            CompareRgbDifference(new RgbDifference(0, 0, 0), bytes[1]);
+            CompareRgbDifference(new RgbDifference(1, 1, 0), bytes[2]);
+            CompareRgbDifference(new RgbDifference(0, 1, 0), bytes.Last());
+        }
+
+        private void CompareRgbDifference(RgbDifference expected, RgbDifference actual)
+        {
+            Assert.Equal(expected.GetHashCode(), actual.GetHashCode());
         }
     }
 }

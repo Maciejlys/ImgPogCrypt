@@ -1,7 +1,10 @@
-﻿namespace ImgPogCrypt.lib
+﻿using System.Collections.Generic;
+using ImgPogCrypt.model;
+
+namespace ImgPogCrypt.lib
 {
     public interface IEncryptor
     {
-        public string[] StringToByteArray(string txt);
+        public List<RgbDifference> Encrypt(string txt);
     }
 }
