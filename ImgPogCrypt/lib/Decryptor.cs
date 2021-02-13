@@ -2,6 +2,6 @@
 {
     public interface IDecryptor
     {
-        public string ByteArrayToTxt(byte[] bytes);
+        public string Decrypt(byte[] bytes);
     }
 }
