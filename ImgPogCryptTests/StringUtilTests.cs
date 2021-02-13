@@ -87,13 +87,13 @@ namespace ImgPogCryptTests
             string[] expected = new[] {"1001", "0000"};
             Assert.Equal(expected, StringUtil.SplitStringBySize(txt, 4));
         }
-        
+
         [Fact]
         public void string_split_set_of_5()
         {
             string txt = "10010 01010";
             string[] expected = new[] {"10010", "01010"};
-            Assert.Equal(expected, StringUtil.SplitStringBySize(TrimSpaces(txt), 5));
+            Assert.Equal(expected, StringUtil.SplitStringBySize(StringUtil.RemoveSpaces(txt), 5));
         }
 
         [Fact]
@@ -104,9 +104,12 @@ namespace ImgPogCryptTests
             Assert.Throws<ArgumentException>(() => StringUtil.SplitStringBySize(txt, -1));
         }
 
-        private string TrimSpaces(string s)
+        [Fact]
+        public void remove_spaces()
         {
-            return String.Concat(s.Where(c => !Char.IsWhiteSpace(c)));
+            string txt = "a b c";
+            string expected = "abc";
+            Assert.Equal(expected, StringUtil.RemoveSpaces(txt));
         }
     }
 }

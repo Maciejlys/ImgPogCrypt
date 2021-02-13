@@ -39,5 +39,10 @@ namespace ImgPogCrypt
         {
             return string.Join("", strings);
         }
+
+        public static string RemoveSpaces(string s)
+        {
+            return s.Replace(" ", "");
+        }
     }
 }
