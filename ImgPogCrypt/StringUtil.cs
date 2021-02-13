@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ImgPogCrypt
@@ -30,6 +31,11 @@ namespace ImgPogCrypt
             }
 
             return list.ToArray();
+        }
+
+        public static string JoinSets(string[] strings)
+        {
+            return string.Join("", strings);
         }
     }
 }
