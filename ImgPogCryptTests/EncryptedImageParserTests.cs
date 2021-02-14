@@ -16,16 +16,16 @@ namespace ImgPogCryptTests
             Bitmap bitmap = new Bitmap(3, 1);
             bitmap.SetPixel(0,0, Color.FromArgb(0,0,0));
             bitmap.SetPixel(1,0, Color.FromArgb(0,0,1));
-            bitmap.SetPixel(2,0, Color.FromArgb(1,0,1));
-            List<RgbDifference> rgbDifferences = _encrypter.Parse(bitmap);
+            bitmap.SetPixel(2,0, Color.FromArgb(1,0,0));
+            List<int> rgbDifferences = _encrypter.Parse(bitmap);
             
-            RgbDifference expectedFirstPixel = new RgbDifference(0, 0, 0);
-            RgbDifference expectedSecondPixel = new RgbDifference(0, 0, 1);
-            RgbDifference expectedThirdPixel = new RgbDifference(1, 0, 1);
+            int expectedFirstPixel = 0;
+            int expectedSecondPixel = 1;
+            int expectedThirdPixel = 1;
             
-            TestUtil.CompareRgbDifference(expectedFirstPixel, rgbDifferences[0]);
-            TestUtil.CompareRgbDifference(expectedSecondPixel, rgbDifferences[1]);
-            TestUtil.CompareRgbDifference(expectedThirdPixel, rgbDifferences[2]);
+            Assert.Equal(expectedFirstPixel, rgbDifferences[0]);
+            Assert.Equal(expectedSecondPixel, rgbDifferences[1]);
+            Assert.Equal(expectedThirdPixel, rgbDifferences[2]);
         }
         
         [Fact]
@@ -33,19 +33,18 @@ namespace ImgPogCryptTests
         {
             Bitmap bitmap = new Bitmap(2, 2);
             bitmap.SetPixel(0,0, Color.FromArgb(0,0,0));
-            bitmap.SetPixel(1,0, Color.FromArgb(0,1,1));
-            bitmap.SetPixel(0,1, Color.FromArgb(0,1,0));
-            bitmap.SetPixel(1,1, Color.FromArgb(1,1,1));
-            List<RgbDifference> rgbDifferences = _encrypter.Parse(bitmap);
-            RgbDifference expectedFp = new RgbDifference(0, 0, 0);
-            RgbDifference expectedSp = new RgbDifference(0, 1, 1);
-            RgbDifference expectedSlFp = new RgbDifference(0, 1, 0);
-            RgbDifference expectedSlSp = new RgbDifference(1, 1, 1);
-            
-            TestUtil.CompareRgbDifference(expectedFp, rgbDifferences[0]);
-            TestUtil.CompareRgbDifference(expectedSp, rgbDifferences[1]);
-            TestUtil.CompareRgbDifference(expectedSlFp, rgbDifferences[2]);
-            TestUtil.CompareRgbDifference(expectedSlSp, rgbDifferences[3]);
+            bitmap.SetPixel(1,0, Color.FromArgb(0,0,1));
+            bitmap.SetPixel(0,1, Color.FromArgb(1,0,0));
+            bitmap.SetPixel(1,1, Color.FromArgb(0,0,1));
+            List<int> rgbDifferences = _encrypter.Parse(bitmap);
+            int expectedFp = 0;
+            int expectedSp = 1;
+            int expectedSlFp = 1;
+            int expectedSlSp = 1;
+            Assert.Equal(expectedFp, rgbDifferences[0]);
+            Assert.Equal(expectedSp, rgbDifferences[1]);
+            Assert.Equal(expectedSlFp, rgbDifferences[2]);
+            Assert.Equal(expectedSlSp, rgbDifferences[3]);
         }
     }
 }

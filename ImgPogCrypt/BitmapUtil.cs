@@ -7,7 +7,7 @@ namespace ImgPogCrypt
     public class BitmapUtil
     {
         public delegate void IterationCallback(Point point);
-        public delegate void RgbIterationCallback(Point point, RgbDifference rgb);
+        public delegate void CharIterationCallback(Point point, int diff);
         
         public static void Iterate(Bitmap image, IterationCallback callback)
         {
@@ -20,10 +20,10 @@ namespace ImgPogCrypt
             }
         }
 
-        public static void Iterate(Bitmap image, List<RgbDifference> diffs, RgbIterationCallback callback)
+        public static void Iterate(Bitmap image, List<int> diffs, CharIterationCallback callback)
         {
             Point position = new Point(0, 0);
-            foreach (var diff in diffs)
+            foreach (int diff in diffs)
             {
                 if (position.X >= image.Width)
                 {
