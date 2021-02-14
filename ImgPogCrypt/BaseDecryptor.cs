@@ -27,7 +27,7 @@ namespace ImgPogCrypt
             {
                 byteList.Add(Convert.ToByte(data.Substring(i, 8), 2));
             }
-            return Encoding.ASCII.GetString(byteList.ToArray());
+            return Encoding.UTF8.GetString(byteList.ToArray());
         }
     }
 }

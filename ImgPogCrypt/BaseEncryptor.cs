@@ -11,13 +11,13 @@ namespace ImgPogCrypt
     {
         public List<int> Encrypt(string txt)
         {
-            List<int> result = new List<int>();
-            foreach (char c in txt.ToCharArray())
-            {
-                String binary = (Convert.ToString(c, 2).PadLeft(8, '0'));
-                binary.ToList().ForEach(c => result.Add(Convert.ToInt32(c) == 49 ? 1 : 0));
-            }
-            return result;
+            return String.Join(
+                    String.Empty,
+                    Encoding.UTF8
+                        .GetBytes(txt)
+                        .Select(byt => Convert.ToString(byt, 2).PadLeft(8, '0')))
+                        .Select(c => Convert.ToInt32(c) == 49 ? 1 : 0)
+                        .ToList();
         }
     }
 }
