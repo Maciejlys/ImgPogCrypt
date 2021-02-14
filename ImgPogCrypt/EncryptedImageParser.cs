@@ -14,7 +14,9 @@ namespace ImgPogCrypt
             BitmapUtil.Iterate(bitmap, point =>
             {
                 Color color = bitmap.GetPixel(point.X, point.Y);
-                result.Add(color.R + color.G + color.B);
+                int sum = color.R + color.G + color.B;
+                if (sum <= 1)
+                    result.Add(sum);
             });
             return result;
         }

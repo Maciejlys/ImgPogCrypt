@@ -38,5 +38,17 @@ namespace ImgPogCryptTests
             string result = _decryptor.Decrypt(diff);
             Assert.Equal(expected, result);
         }
+        
+        [Fact]
+        public void binary_to_string_big_2()
+        {
+            string expected = "check";
+            string diffs = "01100011 01101000 01100101 01100011 011010111";
+            diffs = StringUtil.RemoveSpaces(diffs);
+            List<int> diff = new List<int>();
+            diffs.ToList().ForEach(x=>diff.Add(int.Parse(x.ToString())));
+            string result = _decryptor.Decrypt(diff);
+            Assert.Equal(expected, result);
+        }
     }
 }

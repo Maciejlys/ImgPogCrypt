@@ -11,6 +11,7 @@ namespace ImgPogCrypt
         {
             int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(diffs.Count)));
             Bitmap map = new Bitmap(size, size);
+            BitmapUtil.FillBitmapWithColor(Color.White, map);
 
             BitmapUtil.Iterate(map, diffs,
                 (point, diff) =>
