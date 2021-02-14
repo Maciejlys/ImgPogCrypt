@@ -7,14 +7,14 @@ namespace ImgPogCrypt
 {
     public class EncryptedImageParser
     {
-        public List<RgbDifference> Parse(Bitmap bitmap)
+        public List<int> Parse(Bitmap bitmap)
         {
-            List<RgbDifference> result = new List<RgbDifference>();
+            List<int> result = new List<int>();
 
             BitmapUtil.Iterate(bitmap, point =>
             {
                 Color color = bitmap.GetPixel(point.X, point.Y);
-                result.Add(new RgbDifference(color.R, color.G, color.B));
+                result.Add(color.R + color.G + color.B);
             });
             return result;
         }

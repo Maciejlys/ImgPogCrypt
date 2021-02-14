@@ -83,10 +83,5 @@ namespace ImgPogCryptTests.Encryptor
             Assert.Equal(1, binaryList[1]);
             Assert.Equal(1, binaryList[2]);
         }
-
-        private void CompareRgbDifference(RgbDifference expected, RgbDifference actual)
-        {
-            Assert.Equal(expected.GetHashCode(), actual.GetHashCode());
-        }
     }
 }

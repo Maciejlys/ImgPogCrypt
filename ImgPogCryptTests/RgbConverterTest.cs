@@ -86,7 +86,6 @@ namespace ImgPogCryptTests
             Assert.Equal(1, Convert.ToInt32(result.GetPixel(0, 0).R));
             Assert.Equal(0, Convert.ToInt32(result.GetPixel(1, 0).R));
             Assert.Equal(1, Convert.ToInt32(result.GetPixel(2, 0).R));
-            // CompareRgbDifference(exampleRgb, RgbDifference.fromColor(result.GetPixel(0, 0)));
         }
 
         [Fact]
@@ -112,11 +111,6 @@ namespace ImgPogCryptTests
                 Color color = result.GetPixel(point.X, point.Y);
                 Assert.Equal(diff, Convert.ToInt32(color.R));
             });
-        }
-
-        private void CompareRgbDifference(RgbDifference expected, RgbDifference actual)
-        {
-            Assert.Equal(expected.GetHashCode(), actual.GetHashCode());
         }
     }
 }

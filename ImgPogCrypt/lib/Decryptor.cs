@@ -5,6 +5,6 @@ namespace ImgPogCrypt.lib
 {
     public interface IDecryptor
     {
-        public string Decrypt(List<RgbDifference> diff);
+        public string Decrypt(List<int> diff);
     }
 }
