@@ -80,34 +80,37 @@ namespace ImgPogCryptTests
         [Fact]
         public void check_image_copy()
         {
-            Bitmap inputImage = new Bitmap(1, 1);
-            RgbDifference exampleRgb = new RgbDifference(1, 0, 1);
-            List<RgbDifference> diffs = new List<RgbDifference>() { exampleRgb };
+            Bitmap inputImage = new Bitmap(3, 1);
+            List<int> diffs = new List<int>() { 1, 0, 1 };
             Bitmap result = _converter.ToBitmap(diffs, inputImage);
-            CompareRgbDifference(exampleRgb, RgbDifference.fromColor(result.GetPixel(0, 0)));
+            Assert.Equal(1, Convert.ToInt32(result.GetPixel(0, 0).R));
+            Assert.Equal(0, Convert.ToInt32(result.GetPixel(1, 0).R));
+            Assert.Equal(1, Convert.ToInt32(result.GetPixel(2, 0).R));
+            // CompareRgbDifference(exampleRgb, RgbDifference.fromColor(result.GetPixel(0, 0)));
         }
 
         [Fact]
         public void check_image_copy_2()
         {
-            Bitmap inputImage = new Bitmap(1, 1);
+            Bitmap inputImage = new Bitmap(3, 1);
             inputImage.SetPixel(0, 0, Color.FromArgb(200, 200, 200));
-            RgbDifference exampleRgb = new RgbDifference(1, 0, 1);
-            List<RgbDifference> diffs = new List<RgbDifference>() { exampleRgb };
+            List<int> diffs = new List<int>() { 1, 0, 1 };
             Bitmap result = _converter.ToBitmap(diffs, inputImage);
-            Assert.Equal(Color.FromArgb(201, 200, 201), result.GetPixel(0, 0));
+            Assert.Equal(Color.FromArgb(201, 200, 200), result.GetPixel(0, 0));
+            Assert.Equal(Color.FromArgb(0, 0, 0), result.GetPixel(1, 0));
+            Assert.Equal(Color.FromArgb(1, 0, 0), result.GetPixel(2, 0));
         }
         
         private void EncryptAndValidate(string message)
         {
-            List<RgbDifference> diffs = _encryptor.Encrypt(message);
+            List<int> diffs = _encryptor.Encrypt(message);
             Bitmap result = _converter.ToBitmap(diffs);
             Assert.True((result.Width * result.Height) >= diffs.Count);
 
             BitmapUtil.Iterate(result, diffs, (point, diff) =>
             {
                 Color color = result.GetPixel(point.X, point.Y);
-                CompareRgbDifference(diff, RgbDifference.fromColor(color));
+                Assert.Equal(diff, Convert.ToInt32(color.R));
             });
         }
 

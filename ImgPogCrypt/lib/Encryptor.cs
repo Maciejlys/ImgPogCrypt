@@ -5,6 +5,6 @@ namespace ImgPogCrypt.lib
 {
     public interface IEncryptor
     {
-        public List<RgbDifference> Encrypt(string txt);
+        public List<int> Encrypt(string txt);
     }
 }
