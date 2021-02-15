@@ -22,7 +22,6 @@ namespace ImgPogCrypt
          */
         static void Main(string[] args)
         {
-            Console.WriteLine("-h to help");
             BaseDecryptor baseDecryptor = new BaseDecryptor();
             BaseEncryptor baseEncryptor = new BaseEncryptor();
             RgbConverter rgbConverter = new RgbConverter();
@@ -63,14 +62,10 @@ namespace ImgPogCrypt
             }
             else if (cliCommands.Any(c => c.Action == CliAction.H))
             {
-                Console.WriteLine("-em ");
-                Console.WriteLine("secret message to encrypt into image");
-                Console.WriteLine("-o");
-                Console.WriteLine("output where  image should be stored");
-                Console.WriteLine("-d");
-                Console.WriteLine("decrypt from image file path");
-                Console.WriteLine("-ef");
-                Console.WriteLine("path to a file with text to encrypt into image");
+                Console.WriteLine("-em : secret message to encrypt into image");
+                Console.WriteLine("-o : output where  image should be stored");
+                Console.WriteLine("-d : decrypt from image file path");
+                Console.WriteLine("-ef : path to a file with text to encrypt into image");
                 Console.WriteLine("-o must be used with -em or -ef");
             }
             else

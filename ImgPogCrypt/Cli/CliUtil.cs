@@ -13,31 +13,40 @@ namespace ImgPogCrypt
 
         private static CliCommand StringToCommand(string arg)
         {
-            string[] strings = arg.Split("=");
             CliAction cliAction;
-            switch (strings[0])
+            string value = "";
+            if (arg.Contains("="))
+            {
+                string[] strings = arg.Split("=");
+                value = strings[1];
+                cliAction = StringToCliAction(strings[0]);
+            }
+            else
+            {
+                cliAction = StringToCliAction(arg);
+            }
+
+            return new CliCommand(cliAction, value);
+        }
+
+        private static CliAction StringToCliAction(string s)
+        {
+            switch (s)
             {
                 default:
                     throw new ArgumentException("Unsupported action");
 
                 case "-em":
-                    cliAction = CliAction.Em;
-                    break;
+                    return CliAction.Em;
                 case "-o":
-                    cliAction = CliAction.O;
-                    break;
+                    return CliAction.O;
                 case "-d":
-                    cliAction = CliAction.D;
-                    break;
+                    return CliAction.D;
                 case "-ef":
-                    cliAction = CliAction.Ef;
-                    break;
+                    return CliAction.Ef;
                 case "-h":
-                    cliAction = CliAction.H;
-                    break;
+                    return CliAction.H;
             }
-
-            return new CliCommand(cliAction, strings[1]);
         }
     }
 }
