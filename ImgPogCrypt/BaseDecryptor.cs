@@ -9,7 +9,7 @@ namespace ImgPogCrypt
     {
         public string Decrypt(List<int> diff)
         {
-            return BinaryToString(JoinAllRgbDiffs(diff));
+            return BinaryToString(JoinAllRgbDiffs(diff)).Replace("\0", String.Empty);
         }
 
         private string JoinAllRgbDiffs(List<int> diff)
@@ -22,7 +22,12 @@ namespace ImgPogCrypt
         public static string BinaryToString(string data)
         {
             List<Byte> byteList = new List<Byte>();
-        
+
+            while (data.Length % 8 != 0)
+            {
+                data = data.Remove(data.Length -1);
+            }
+            
             for (int i = 0; i < data.Length; i += 8)
             {
                 byteList.Add(Convert.ToByte(data.Substring(i, 8), 2));

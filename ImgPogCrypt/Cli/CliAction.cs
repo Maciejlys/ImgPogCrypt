@@ -1,16 +1,11 @@
 ﻿namespace ImgPogCrypt
 {
     /*
-     * -m 
-     *  secret message to encrypt into image
-     * -o
-     *  output where  image should be stored
-     * -d
-     *  decrypt from image file path
-     * -e
-     *  encrypt
-     * -f
-     *  path to a file with text to encrypt into image
+         * -em : secret message to encrypt into image
+         * -ef : path to a file with text to encrypt into image
+         * -o  : output where image should be stored
+         * -b  : base image
+         * -d  : decrypt from image file path
      */
     public enum CliAction
     {
@@ -18,6 +13,7 @@
         O,
         D,
         Ef,
-        H
+        H,
+        B
     }
 }

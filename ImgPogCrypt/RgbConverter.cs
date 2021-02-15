@@ -7,59 +7,54 @@ namespace ImgPogCrypt
 {
     public class RgbConverter
     {
-        public Bitmap ToBitmap(List<int> diffs)
+        public Bitmap ToBitmap(List<int> bits)
         {
-            int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(diffs.Count)));
+            int size = Convert.ToInt32(Math.Ceiling(Math.Sqrt(bits.Count)));
             Bitmap map = new Bitmap(size, size);
-            BitmapUtil.FillBitmapWithColor(Color.FromArgb(2,2,2), map);
+            BitmapUtil.FillBitmapWithColor(Color.FromArgb(2, 2, 2), map);
 
-            BitmapUtil.Iterate(map, diffs,
-                (point, diff) =>
-                {
-                    map.SetPixel(point.X, point.Y, Color.FromArgb(diff, 0, 0));
-                });
+            BitmapUtil.Iterate(map, bits,
+                (point, diff) => { map.SetPixel(point.X, point.Y, Color.FromArgb(diff, 0, 0)); });
             return map;
         }
 
-        public Bitmap ToBitmap(List<int> diffs, Bitmap image)
+        public Bitmap ToBitmap(List<int> bits, Bitmap image)
         {
-            if (IsImageTooSmall(diffs.Count, image))
+            if (IsImageTooSmall(bits.Count, image))
                 throw new ArgumentException("Image is too small!");
 
+            // Bitmap newImage = new Bitmap(image.Width, image.Height);
             Bitmap newImage = new Bitmap(image);
-            BitmapUtil.Iterate(image, diffs, (point, diff) =>
+            BitmapUtil.Iterate(image, bits, (point, diff) =>
             {
-                Color pixel = image.GetPixel(point.X, point.Y);
-                if (!PixelColorLimitExceeded(pixel))
+                NumberColor numberColor = NumberColor.fromColor(image.GetPixel(point.X, point.Y));
+                if (numberColor.R <= 253)
                 {
-                    NumberColor nColor = NumberColor.fromColor(pixel);
-                    if (nColor.R < 253)
-                    {
-                        nColor.R += diff;
-                    } else if (nColor.G < 253)
-                    {
-                        nColor.G += diff;
-                    } else if (nColor.B < 253)
-                    {
-                        nColor.B += diff;
-                    }
-                    newImage.SetPixel(point.X, point.Y, nColor.toColor());
+                    numberColor.R += diff;
                 }
+                else if (numberColor.G <= 253)
+                {
+                    numberColor.G += diff;
+                }
+                else if (numberColor.B <= 253)
+                {
+                    numberColor.B += diff;
+                }
+
+                newImage.SetPixel(point.X, point.Y, numberColor.toColor());
             });
             return newImage;
         }
-
-        public bool PixelColorLimitExceeded(Color pixel) => (pixel.R > 253 || pixel.G > 253 || pixel.B > 253);
 
         public bool IsImageTooSmall(int diffsCount, Bitmap image)
         {
             int capablePixelsCount = 0;
             BitmapUtil.Iterate(image, point =>
             {
-                Color pixel = image.GetPixel(point.X, point.Y);
-                if (pixel.R < 253 || pixel.G < 253 || pixel.B < 253)
+                if (PixelUtil.IsPixelWritable(image.GetPixel(point.X, point.Y)))
                     capablePixelsCount++;
             });
+            Console.WriteLine($"Found {capablePixelsCount} writable pixels, {diffsCount} required");
             return capablePixelsCount < diffsCount;
         }
     }

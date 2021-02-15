@@ -23,8 +23,10 @@ namespace ImgPogCrypt
 
         public static void Iterate(Bitmap image, List<int> diffs, CharIterationCallback callback)
         {
+            int currentDiff = 0;
             Point position = new Point(0, 0);
-            foreach (int diff in diffs)
+
+            while (currentDiff < diffs.Count)
             {
                 if (position.X >= image.Width)
                 {
@@ -32,7 +34,12 @@ namespace ImgPogCrypt
                     position.Y++;
                 }
 
-                callback(position, diff);
+                
+                if (PixelUtil.IsPixelWritable(image.GetPixel(position.X, position.Y)))
+                {
+                    callback(position, diffs[currentDiff]);
+                    currentDiff++;
+                }
                 position.X++;
             }
         }

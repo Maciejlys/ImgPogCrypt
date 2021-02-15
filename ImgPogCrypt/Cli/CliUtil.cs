@@ -33,9 +33,6 @@ namespace ImgPogCrypt
         {
             switch (s)
             {
-                default:
-                    throw new ArgumentException("Unsupported action");
-
                 case "-em":
                     return CliAction.Em;
                 case "-o":
@@ -46,6 +43,10 @@ namespace ImgPogCrypt
                     return CliAction.Ef;
                 case "-h":
                     return CliAction.H;
+                case "-b":
+                    return CliAction.B;
+                default:
+                    throw new ArgumentException("Unsupported action");
             }
         }
     }
