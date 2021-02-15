@@ -94,6 +94,7 @@ namespace ImgPogCrypt
                 Console.WriteLine("-d : decrypt from image file path");
                 Console.WriteLine("-ef : path to a file with text to encrypt into image");
                 Console.WriteLine("-o must be used with -em or -ef");
+                Console.WriteLine("-b  : base image");
             }
             else
             {
