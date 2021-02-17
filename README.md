@@ -7,11 +7,11 @@ Note: every pixel is defined by 3 colors (rgb) - amount of red, green and blue.
 
 Here is a image before encryption:
 
-![base](https://github.com/Maciejlys/ImgPogCrypt/blob/readme/img/base.jpg)
+![base](https://github.com/Maciejlys/ImgPogCrypt/blob/master/img/base.jpg)
 
 And here is a image after encryption:
 
-![output](https://github.com/Maciejlys/ImgPogCrypt/blob/readme/img/output.jpg)
+![output](https://github.com/Maciejlys/ImgPogCrypt/blob/master/img/output.jpg)
 
 Can u see a difference? nor do I.
 
