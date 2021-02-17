@@ -1,10 +1,19 @@
-# ImgPogCrypt
-
+# ImgPogCrypt 🔒
 Hi! ImgPogCrypt is a simple C# program that lets you hide a **text** inside an **image**!
 
 # How it works?
 
 Note: every pixel is defined by 3 colors (rgb) - amount of red, green and blue.
+
+Here is a image before encryption:
+
+![base](https://github.com/Maciejlys/ImgPogCrypt/blob/readme/img/base.jpg)
+
+And here is a image after encryption:
+
+![output](https://github.com/Maciejlys/ImgPogCrypt/blob/readme/img/output.jpg)
+
+Can u see a difference? nor do I.
 
 ## Encrypting
 
@@ -58,5 +67,3 @@ To encrypt a message from CLI:
 To decrypt:
 
 > -d=**full path**\user\Desktop\output.jpg -b=**full path**\user\Desktop\base.jpg
-
-# Contributors
